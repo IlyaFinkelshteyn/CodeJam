@@ -24,45 +24,11 @@ assembly_info:
   assembly_file_version: '$(buildVersion)'
   assembly_informational_version: '$(nugetVersion)'
 
-#dotnet_csproj:
-#  patch: true
-#  file: 'Build\CodeJam.Default.props'
-#  version: '$(buildVersion)'
-#  package_version: '$(nugetVersion)'
+dotnet_csproj:
+  patch: true
+  file: 'Build\CodeJam.Default.props'
+  version: '$(buildVersion)'
+  package_version: '$(nugetVersion)'
 
-nuget:
-  account_feed: false
-  project_feed: false
-
-before_build:
-- ps: .\Build\UpdateVersionProps.ps1 -path Build\CodeJam.Default.props -buildVersion $env:buildVersion -nugetVersion $env:nugetVersion
-- ps: .\Build\UpdateVersionProps.ps1 -path Build\CodeJam.PerfTests.Default.props -buildVersion $env:perfTestsBuildVersion -nugetVersion $env:perfTestsNugetVersion
-#- cmd: nuget restore CodeJam.sln
-
-#build:
-#  project: CodeJam.sln
-#  publish_nuget: false
-#  verbosity: minimal
-
-# to run your custom scripts instead of automatic MSBuild
-build_script:
-  msbuild CodeJam.sln /p:Configuration=Publish /t:Restore;Build /v:m
-
-test_script:
-  - ps: .\Build\RunNUnitTests.ps1
-  - ps: .\Build\RunxUnitTests.ps1
-  - ps: .\Build\RunMsTestTests.ps1
-#test:
-#  # only assemblies to test
-#  assemblies:
-#    only:
-#      - '**\*-Tests.dll'
-#      - '**\*-Tests.*.dll'
-
-after_build:
- - ps: Get-ChildItem _Results\*.nupkg | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
-
-on_finish:
-# artifacts for perftests
-#  - ps: Get-ChildItem *.csv -r | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
-  - ps: Get-ChildItem *.PerfTests.log -r | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
+build: off
+test: off
