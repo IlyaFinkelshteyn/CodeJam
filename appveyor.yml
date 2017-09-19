@@ -32,6 +32,7 @@ dotnet_csproj:
 
 install:
 - type Build\CodeJam.Default.props
+- ps: sleep 20
 
 build_script:
 - type Build\CodeJam.Default.props
