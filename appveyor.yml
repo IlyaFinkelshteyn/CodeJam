@@ -30,5 +30,8 @@ dotnet_csproj:
   version: '$(buildVersion)'
   package_version: '$(nugetVersion)'
 
-build: off
-test: off
+install:
+- type Build\CodeJam.Default.props
+
+build_script:
+- type Build\CodeJam.Default.props
