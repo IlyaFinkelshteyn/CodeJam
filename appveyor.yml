@@ -26,13 +26,15 @@ assembly_info:
 
 dotnet_csproj:
   patch: true
-  file: 'Build\CodeJam.Default.props'
+  file: 'Build\CodeJam.Default.props, Build\test-xml.xml'
   version: '$(buildVersion)'
   package_version: '$(nugetVersion)'
 
 install:
 - type Build\CodeJam.Default.props
+- type Build\test-xml.xml
 - ps: sleep 20
 
 build_script:
 - type Build\CodeJam.Default.props
+- type Build\test-xml.xml
